@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="word-display" id="wordDisplay"></div>
+        <input type="text" id="inputField" placeholder="Start typing here..." oninput="checkInput()">
+        <div class="report">
+            <p>Correct: <span id="correctCount">0</span></p>
+            <p>Incorrect: <span id="incorrectCount">0</span></p>
+            <p>WPM: <span id="wpm">0</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

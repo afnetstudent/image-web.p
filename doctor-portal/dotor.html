@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Data Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Patient Data Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Patients</a></li>
+                <li><a href="#">Appointments</a></li>
+                <li><a href="#">Doctors</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="add-patient">
+            <h2>Add New Patient</h2>
+            <form id="patient-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <button type="submit">Add Patient</button>
+            </form>
+        </section>
+        <section id="patient-list">
+            <h2>Patient List</h2>
+            <ul id="patients">
+                <!-- Patient records will be displayed here -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Patient Data Portal</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

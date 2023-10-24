@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to WebP Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #image-container {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image to WebP Converter</h1>
+    <input type="url" id="imageUrlInput" placeholder="Enter Image URL">
+    <button id="convertButton">Convert to WebP</button>
+    <div id="image-container">
+        <img id="result-image" src="" alt="Result">
+    </div>
+
+    <a id="downloadLink" style="display: none">
+        <button id="downloadButton">Download WebP</button>
+    </a>
+
+    <script>
+        const imageUrlInput = document.getElementById("imageUrlInput");
+        const convertButton = document.getElementById("convertButton");
+        const resultImage = document.getElementById("result-image");
+        const downloadLink = document.getElementById("downloadLink");
+        const downloadButton = document.getElementById("downloadButton");
+
+        // Function to generate a unique filename
+        function getUniqueFilename() {
+            const timestamp = new Date().getTime();
+            return `converted_${timestamp}.webp`;
+        }
+
+        // Function to convert the image from URL to WebP with a unique filename
+        function convertToWebP() {
+            const imageUrl = imageUrlInput.value;
+
+            if (imageUrl) {
+                fetch(imageUrl)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const reader = new FileReader();
+                        reader.onload = function () {
+                            const img = new Image();
+                            img.src = reader.result;
+                            img.onload = function () {
+                                const canvas = document.createElement("canvas");
+                                canvas.width = img.width;
+                                canvas.height = img.height;
+                                const ctx = canvas.getContext("2d");
+                                ctx.drawImage(img, 0, 0);
+
+                                // Convert the canvas to a data URL (WebP format) with compression options
+                                const webPDataURL = canvas.toDataURL("image/webp", 0.7); // Adjust compression level here
+
+                                resultImage.src = webPDataURL;
+
+                                // Show the download link and button
+                                downloadLink.style.display = "block";
+
+                                // Set the download link href
+                                downloadLink.href = webPDataURL;
+
+                                // Generate a unique filename
+                                const uniqueFilename = getUniqueFilename();
+
+                                // Set the download link download attribute
+                                downloadLink.setAttribute("download", uniqueFilename);
+                            };
+                        };
+                        reader.readAsDataURL(blob);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching image:", error);
+                    });
+            }
+        }
+
+        // Add an event listener to the convert button
+        convertButton.addEventListener("click", convertToWebP);
+    </script>
+</body>
+</html>
